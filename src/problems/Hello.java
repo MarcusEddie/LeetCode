@@ -1,5 +1,10 @@
 package problems;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class Hello {
 
     public static void main(String[] args) {
@@ -12,6 +17,14 @@ public class Hello {
         System.out.println(a.length + 53);
         System.out.println((a.length + 53) * 2);
         System.out.println((a.length + 53) * 2 - sum);
+        
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        Iterator<Entry<String, Integer>> it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<java.lang.String, java.lang.Integer> entry = (Map.Entry<java.lang.String, java.lang.Integer>) it
+                    .next();
+            
+        }
     }
 
 }

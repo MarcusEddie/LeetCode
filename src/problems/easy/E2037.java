@@ -1,5 +1,8 @@
 package problems.easy;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class E2037 {
 
     public static void main(String[] args) {
@@ -14,6 +17,8 @@ public class E2037 {
         public int minMovesToSeat(int[] seats, int[] students) {
             int rs = 0;
             int[] slot = new int[101];
+            Set<Integer> set = new HashSet<Integer>();
+            
             for (int i = 0; i < seats.length; i++) {
                 slot[seats[i]] = slot[seats[i]] + 1;
             }
@@ -21,36 +26,6 @@ public class E2037 {
                 if (slot[students[i]] != 0) {
                     slot[students[i]] = slot[students[i]] - 1;
                     students[i] = -1;
-                }
-            }
-//            for (int i : students) {
-//                System.out.print(i + " ");
-//            }
-//            System.out.println();
-//            for (int i : slot) {
-//                System.out.print(i + " ");
-//            }
-//            System.out.println();
-            for (int i = 0; i < students.length; i++) {
-                if (students[i] > 0) {
-                    int idx = 0;
-                    while (true) {
-                        if ((students[i] - idx - 1 > 0) && slot[students[i] - idx - 1] > 0) {
-//                            System.out.println("l: "+rs);
-                            rs = rs + Math.abs(students[i] - (students[i] - idx -1));
-                            slot[students[i] - idx - 1] = slot[students[i] - idx - 1] - 1;
-//                            System.out.println("l: "+rs);
-                            break;
-                        } else if ((students[i] + idx + 1 <= 100) && slot[students[i] + idx + 1] > 0) {
-//                            System.out.println("r: "+rs);
-                            rs = rs + Math.abs(students[i] - (students[i] + idx + 1));
-                            slot[students[i] + idx + 1] = slot[students[i] + idx + 1] - 1;
-//                            System.out.println("r: "+rs);
-                            break;
-                        }else {
-                            idx++;
-                        }
-                    }
                 }
             }
 

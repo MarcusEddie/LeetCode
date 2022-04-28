@@ -1,10 +1,5 @@
 package problems.easy;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
-
 public class E617 {
 
     public static void main(String[] args) {
@@ -17,40 +12,35 @@ public class E617 {
 
     private static class Solution {
         public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
-            TreeNode node = new TreeNode();
-            TreeNode[] node1 = gen(root1);
-            for (int i = 0; i < node1.length; i++) {
-                if (node1[i] == null) {
-                    System.out.print("null" + " ");
-                } else {
-                    System.out.print(node1[i].val + " ");
-                }
+            if (root1 == null && root2 != null) {
+                return root2;
+            } else if (root1 != null && root2 == null) {
+                return root1;
+            } else if (null == root1 && null == root2) {
+                return null;
             }
-            System.out.println();
-            TreeNode[] node2 = gen(root2);
-            
+            TreeNode node = merge(root1, root2);
             return node;
         }
         
-        private TreeNode[] gen(TreeNode root) {
-            TreeNode[] slot = new TreeNode[2001];
-            if (null == root) {
+        private TreeNode merge(TreeNode root1, TreeNode root2) {
+            TreeNode rs = new TreeNode();
+            
+            if (null == root1 && null != root2) {
+                return root2;
+            } else if (null != root1 && null == root2) {
+                return root1;
+            } else if (null == root1 && null == root2) {
                 return null;
             }
-            slot[0] = root;
-            for(int i = 0; i < slot.length; i++) {
-                if (slot[i]!= null && slot[i].left == null) {
-                    slot[2 * i + 1] = null;
-                } else if (slot[i]!= null && slot[i].left != null) {
-                    slot[2 * i + 1] = slot[i].left;
-                }
-                if (slot[i]!= null && slot[i].right == null) {
-                    slot[2 * i + 2] = null;
-                } else if (slot[i]!= null && slot[i].right != null) {
-                    slot[2 * i + 2] = slot[i].right;
-                }
+            rs.val = root1.val + root2.val;
+            if (null != root1.left || null != root2.left) {
+                rs.left = merge(root1.left, root2.left);
             }
-            return slot;
+            if (null != root1.right || null != root2.right) {
+                rs.right = merge(root1.right, root2.right);
+            }
+            return rs;
         }
     }
 
